@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include <cmath>
 #include <vector>
 using namespace std;
@@ -10,57 +11,66 @@ class my_class{
 	void add(int value){
 		my_vector.push_back(value);
 	}
-	
-	void find_duplicated(int k){
+
+	void check_members(int k){
 		if(!my_vector.empty()){
-			int min=100001,left,right;
+			sort(my_vector.begin(),my_vector.end());
+			int min=0,left=0,right=0;
+			bool check = false;
 			for(int i=0;i<my_vector.size();i++){
 				for(int j=i+1;j<my_vector.size();j++){
-					int temp = my_vector[i] + my_vector[j];
-					cout<<temp<<endl;
-					if(temp == k){
-						temp = abs(my_vector[i] - my_vector[j]);
-						if(temp < min){
-							min = temp;
+					if((my_vector[j] + my_vector[i]) == k){
+						//cout<<my_vector[i]<<" + "<<my_vector[j]<<" = "<<(my_vector[j] + my_vector[i])<<endl;
+						if(!check){
+							check = true;
+							min = (my_vector[j] - my_vector[i]);
+							left = my_vector[i];
+							right = my_vector[j];
+						}else if((my_vector[j] - my_vector[i]) < min){
+							check = true;
+							min = (my_vector[j] - my_vector[i]);
 							left = my_vector[i];
 							right = my_vector[j];
 						}
 					}
 				}
 			}
-			
-			if(min !=- 100001){
-				if(left < right){
-					cout<<left<<" "<<right<<endl;
-				}else{
-					cout<<right<<" "<<left<<endl;
-				}
+
+			if(check){
+				cout<<left<<" "<<right<<endl;
 			}
+		}
+	}
+
+	void print(){
+		if(!my_vector.empty()){
+			for(int i=0;i<my_vector.size();i++){
+				cout<<my_vector[i]<<" ";
+			}cout<<endl;
 		}
 	}
 };
 
 int main(){
 	my_class mc;
-	int n,k,value;
-	
+	int n,k;
+
 	while(true){
 		cin>>n>>k;
-		if(n >= 2 && n <= 10000){
-			if(k > 1 && k <= 100000){
-				break;
-			}
+		if(n >= 2 && n <= 10000 && k > 1 && k <= 100000){
+			break;
 		}
 	}
-	
+
+	int value;
 	int i=0;
 	while(i < n){
 		cin>>value;
 		if(value >= 1 && value <= 10000){
-			++i;
 			mc.add(value);
+			++i;
 		}
-	}mc.find_duplicated(k);
-	
+	}mc.check_members(k);
+
 	return 0;
 }
