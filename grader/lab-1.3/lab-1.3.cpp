@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 class my_class{
@@ -13,6 +14,13 @@ class my_class{
 
     void add_b(int value){
         b.push_back(value);
+    }
+
+    void check_student(){
+        if(!a.empty() && !b.empty()){
+            sort(a.begin(),a.end()); 
+            sort(b.begin(),b.end());
+        }
     }
 
     void print_a(){
