@@ -12,16 +12,17 @@ class sortornot{
 	
 	bool checksort(int i){
 		if(!my_vector.empty()){
-			if(i < my_vector.size()){
-				if(my_vector[i] > my_vector[i+1]){
-					return 0;
+			for(int i=1;i<my_vector.size();i++){
+				if(my_vector[i-1] > my_vector[i]){
+					//cout<<my_vector[i-1]<<" > "<<my_vector[i]<<endl;
+					return 1;
 				}else{
-					return checksort(i+=1);
+					//cout<<my_vector[i-1]<<" < "<<my_vector[i]<<endl;
 				}
 			}
 		}
-		
-		return 1;
+
+		return 0;
 	}	
 		
 };
@@ -42,7 +43,7 @@ int main(){
 		son.add(value);
 	}
 	
-	if(son.checksort(0)){
+	if(!son.checksort(0)){
 		cout<<"Yes"<<endl;
 	}else{
 		cout<<"No"<<endl;

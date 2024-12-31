@@ -30,9 +30,7 @@ class my_class{
 
 			if(!temp.empty()){
 				sort(temp.begin(),temp.end());
-				if((temp[temp.size()-1] - temp[0]) > 0){
-					cout<<(temp[temp.size()-1] - temp[0])<<endl;
-				}
+				cout<<(temp[temp.size()-1] - temp[0])<<endl;
 			}
 		}
 	}
