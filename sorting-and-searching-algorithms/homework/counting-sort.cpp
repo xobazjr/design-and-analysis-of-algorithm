@@ -1,89 +1,53 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
-class counting_sort{
+class my_class{
 	public:
-		vector <int> my_vector;
-		
-	void add(int value){
-		my_vector.push_back(value);
-	}
-	
-	void print(){
-		if(!my_vector.empty()){
-			for(int i=0;i<my_vector.size();i++){
-				cout<<my_vector[i]<<" ";
-			}cout<<endl;
+		int *a;
+		int *b;
+		int n;
+		int max;
+		my_class(int *a,int n,int max){
+			this->a = a;
+			this->max = max + 1;
+			this->b = new int[max];
+			this->n = n;
+		}
+
+	void import_zero_to_b(){ //import 0 to array b
+		for(int i=0;i<max;i++){
+			b[i] = 0;
 		}
 	}
-	
-	int find_max(){
-		if(!my_vector.empty()){
-			int max = my_vector[0];
-			for(int i=1;i<my_vector.size();i++){
-				if(my_vector[i] > max){
-					max = my_vector[i];
+
+	void check_array_a(){ //import check members a to b
+		for(int i=0;i<n;i++){
+			b[a[i]] += 1;
+		}
+	}
+
+	void print(){ //print array b
+		import_zero_to_b();
+		check_array_a();
+
+		for(int i=0;i<max;i++){
+			if(b[i] > 0){
+				while(b[i] != 0){
+					cout<<i<<" ";
+					--b[i];
 				}
 			}
-			return max;
-		}
-		return -1;	
+		}cout<<endl;
 	}
-	
-	int find_min(){
-		if(!my_vector.empty()){
-			int min = my_vector[0];
-			for(int i=1;i<my_vector.size();i++){
-				if(my_vector[i] < min){
-					min = my_vector[i];
-				}
-			}
-			return min;
-		}
-		return -1;	
-	}
-	
-	void sort(){
-		if(!my_vector.empty()){
-			int size = find_max() - find_min() + 1;
-			int temp[size];
-			for(int i=0;i<size;i++){
-				temp[i] = 0;
-			}
-			for(int i=0;i<my_vector.size();i++){
-				int size_arr = (my_vector[i] - find_min());
-				temp[size_arr] = my_vector[i];
-			}
-			for(int i=0;i<size;i++){
-				if(temp[i] > 0){
-					cout<<temp[i]<<" ";
-				}
-			}cout<<endl;
-		}
-	}
-		
 };
 
 int main(){
-	counting_sort my_sort;
-	
-	//add value
-	my_sort.add(551);
-	my_sort.add(220);
-	my_sort.add(551);
-	my_sort.add(912);
-	my_sort.add(81);
-	my_sort.add(32);
-	my_sort.add(754);
-	my_sort.add(613);
-	my_sort.add(109);
-	
-	//befort-counting-sort
-	my_sort.print(); //output: 551 220 551 912 81 32 754 613 109
-	
-	//after-counting-sort
-	my_sort.sort(); //output: 32 81 109 220 551 613 754 912
+	int n = 9;
+	int a[n] = {551,220,551,912,81,32,745,613,109};
+	int max = 912;
+
+	my_class mc(a,n,max);
+	mc.print();
 
 	return 0;
 }
