@@ -26,7 +26,7 @@ class my_recurive{
 
 int main(){
 	int n = 5;
-	int A[n] = {5,2,9,10,3};
+	int A[] = {5,2,9,10,3};
 	
 	my_recurive m(n,A);
 	m.recursive();
